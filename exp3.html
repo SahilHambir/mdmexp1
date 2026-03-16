@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Indian Cities and Monuments</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 500px;
+            margin: 0 auto;
+            background-color:pink;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        select {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+        }
+
+        .monument-info {
+            display: none;
+            padding: 15px;
+            margin-top: 15px;
+            background-color: grey;
+            border-left: 3px solid blue;
+        }
+
+        .monument-info h2 {
+            color: green;
+        }
+
+      
+        .city-container:has(select option[value="delhi"]:checked) .delhi-monument,
+        .city-container:has(select option[value="agra"]:checked) .agra-monument,
+        .city-container:has(select option[value="mumbai"]:checked) .mumbai-monument,
+        .city-container:has(select option[value="jaipur"]:checked) .jaipur-monument,
+        .city-container:has(select option[value="hyderabad"]:checked) .hyderabad-monument {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1>Indian Cities and Monuments</h1>
+    
+    <!-- Wrapper container -->
+    <div class="city-container">
+        <label for="city">Select a City:</label>
+        <select id="city">
+            <option value="">-- Choose a City --</option>
+            <option value="delhi">Delhi</option>
+            <option value="agra">Agra</option>
+            <option value="mumbai">Mumbai</option>
+            <option value="jaipur">Jaipur</option>
+            <option value="hyderabad" checked>Hyderabad</option>
+        </select>
+
+      
+        <div class="monument-info delhi-monument">
+            <h2>Red Fort</h2>
+            <p>A historic fort built in 1648, UNESCO World Heritage Site.</p>
+        </div>
+
+        <div class="monument-info agra-monument">
+            <h2>Taj Mahal</h2>
+            <p>Marble mausoleum, one of the Seven Wonders of the World.</p>
+        </div>
+
+        <div class="monument-info mumbai-monument">
+            <h2>Gateway of India</h2>
+            <p>Iconic arch-monument built in 1924.</p>
+        </div>
+
+        <div class="monument-info jaipur-monument">
+            <h2>Hawa Mahal</h2>
+            <p>Pink sandstone palace with 953 windows, built in 1799.</p>
+        </div>
+
+        <div class="monument-info hyderabad-monument">
+            <h2>Charminar</h2>
+            <p>Monument with four minarets, built in 1591.</p>
+        </div>
+    </div>
+</body>
+</html>

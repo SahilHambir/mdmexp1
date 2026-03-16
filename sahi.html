@@ -1,0 +1,171 @@
+```php
+<!DOCTYPE html>
+<html>
+<head>
+<title>Birthday Surprise</title>
+
+<style>
+
+body{
+margin:0;
+padding:0;
+text-align:center;
+font-family:Arial;
+background:linear-gradient(45deg,#ff758c,#ff7eb3,#fad0c4);
+overflow-x:hidden;
+}
+
+/* Heading */
+
+h1{
+margin-top:60px;
+font-size:60px;
+color:white;
+text-shadow:2px 2px 10px black;
+}
+
+/* Gift box */
+
+.gift{
+font-size:80px;
+cursor:pointer;
+margin-top:40px;
+}
+
+/* Message */
+
+#wish{
+font-size:35px;
+color:white;
+margin-top:20px;
+}
+
+/* Cake */
+
+.cake{
+font-size:100px;
+margin-top:30px;
+}
+
+/* Hearts */
+
+.heart{
+position:absolute;
+color:red;
+font-size:30px;
+animation:float 6s linear infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(100vh);opacity:1;}
+100%{transform:translateY(-10vh);opacity:0;}
+}
+
+/* Confetti */
+
+.confetti{
+position:absolute;
+width:10px;
+height:10px;
+background:yellow;
+animation:fall 5s linear infinite;
+}
+
+@keyframes fall{
+0%{transform:translateY(-10vh);}
+100%{transform:translateY(100vh);}
+}
+
+/* Footer */
+
+.footer{
+margin-top:80px;
+font-size:22px;
+color:white;
+}
+
+</style>
+
+<script>
+
+function openGift(){
+
+document.getElementById("wish").innerHTML=
+"🎉 Happy Birthday 🎂 <br> May your life be filled with happiness, success and lots of love ❤️";
+
+document.getElementById("cake").innerHTML="🎂";
+
+document.getElementById("music").play();
+
+}
+
+/* hearts */
+
+function createHeart(){
+let heart=document.createElement("div");
+heart.classList.add("heart");
+heart.innerHTML="❤️";
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=Math.random()*30+20+"px";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>{
+heart.remove();
+},6000);
+}
+
+setInterval(createHeart,400);
+
+/* confetti */
+
+function createConfetti(){
+let conf=document.createElement("div");
+conf.classList.add("confetti");
+conf.style.left=Math.random()*100+"vw";
+conf.style.background=
+["red","yellow","blue","green","pink"][Math.floor(Math.random()*5)];
+
+document.body.appendChild(conf);
+
+setTimeout(()=>{
+conf.remove();
+},5000);
+}
+
+setInterval(createConfetti,300);
+
+</script>
+
+</head>
+
+<body>
+
+<h1>🎂 Birthday Surprise 🎂</h1>
+
+<p style="font-size:25px;color:white;">
+Click the gift to open your birthday surprise 🎁
+</p>
+
+<div class="gift" onclick="openGift()">🎁</div>
+
+<p id="wish"></p>
+
+<div id="cake" class="cake"></div>
+
+<audio id="music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+
+<div class="footer">
+💖 Wishing you happiness, success and a wonderful year ahead 💖
+<br><br>
+🎈 Have an amazing birthday celebration 🎈
+</div>
+
+<?php
+$name="Best Wishes From Sahil";
+echo "<p style='color:white;font-size:25px;margin-top:20px;'>$name</p>";
+?>
+
+</body>
+</html>
+```
