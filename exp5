@@ -1,130 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>jQuery Effects & Centering</title>
- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
- <style>
- /* 1. Page Setup */
- body {
- font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
- background-color: #f4f7f6;
- margin: 0;
- display: flex;
- flex-direction: column;
- align-items: center; /* Centers everything horizontally */
- padding-top: 50px;
- }
- /* 2. Controls Styling */
- .controls {
- background: white;
- padding: 20px;
- border-radius: 12px;
- box-shadow: 0 4px 15px rgba(0,0,0,0.1);
- margin-bottom: 30px;
- display: flex;
- gap: 10px;
- flex-wrap: wrap;
- justify-content: center;
- }
- button {
- padding: 12px 20px;
- border: none;
- border-radius: 5px;
- background-color: #2c3e50;
- color: white;
- cursor: pointer;
- transition: background 0.3s;
- font-weight: bold;
- }
- button:hover {
- background-color: #34495e;
- }
- #centerBtn { background-color: #27ae60; }
- /* 3. The Element (Target) */
- #targetBox {
- width: 200px;
- height: 200px;
- background-color: #3498db;
- color: white;
- display: flex;
- align-items: center;
- justify-content: center;
- border-radius: 15px;
- font-size: 1.2rem;
- box-shadow: 0 10px 20px rgba(0,0,0,0.2);
- position: relative; /* Required for custom .animate movements */
- }
- </style>
-</head>
-<body>
- <h2>jQuery Effects & Centering Master</h2>
-
- <div class="controls">
- <button id="hideBtn">Hide</button>
- <button id="showBtn">Show</button>
- <button id="toggleBtn">Toggle</button>
- <button id="slideBtn">Slide</button>
- <button id="fadeBtn">Fade</button>
- <button id="animateBtn">Animate</button>
-
- </div>
- <div id="targetBox">I'm the Element!</div>
- <script>
- $(document).ready(function(){
- // HIDE
- $("#hideBtn").click(function(){
- $("#targetBox").hide(400);
- });
- // SHOW
- $("#showBtn").click(function(){
- $("#targetBox").show(400);
- });
- // TOGGLE (Hide/Show switch)
- $("#toggleBtn").click(function(){
- $("#targetBox").toggle();
- });
- // SLIDE
- $("#slideBtn").click(function(){
- $("#targetBox").slideToggle("slow");
- });
- // FADE
- $("#fadeBtn").click(function(){
- $("#targetBox").fadeOut(500).fadeIn(500);
- });
- // CUSTOM ANIMATION (Grow and Move)
- $("#animateBtn").click(function(){
- $("#targetBox").animate({
- width: "300px",
- height: "300px",
- fontSize: "2rem"
- }, 500).animate({
- width: "200px",
- height: "200px",
- fontSize: "1.2rem"
- }, 500);
- });
- // CENTER LOGIC
- // Note: In this CSS setup, the body uses flex-direction: column
- // We use jQuery to toggle the margin-left/right between 0 and auto
- $("#centerBtn").click(function(){
- let isCentered = $("#targetBox").css("margin-left") === "0px";
-
- if(isCentered) {
- $("#targetBox").css({
- "margin-left": "auto",
- "margin-right": "auto"
- });
- } else {
- $("#targetBox").css({
- "margin-left": "0",
- "margin-right": "0"
- });
- }
- });
- });
- </script>
-</body>
+<!DOCTYPE html> 
+<html> 
+<head> 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
+</head> 
+<body> 
+<button  id="hide">Hide</button > 
+<button  id="show">Show</button > 
+<button  id="toggle">Toggle</button > 
+<button  id="animate">Animate</button > 
+<div id="box" style="width:100px;height:100px;background:red ; position:relative;"></div> 
+<script> 
+$("#hide").click(()=>$("#box").hide()); 
+$("#show").click(()=>$("#box").show()); 
+$("#toggle").click(()=>$("#box").toggle()); 
+$("#animate").click(()=>$("#box").animate({left:'200px'})); 
+</script> 
+</body> 
 </html>
