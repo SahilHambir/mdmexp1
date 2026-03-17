@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>dropdown box</title>
+        <style>
+            #output{
+                color: blue;
+                margin: 10px;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
+        <select onchange="show (this.value)">
+            <option value="taj mahal">agra</option>
+            <option value="gateway of india">mumbai</option>
+            <option value="kutub minar">delhi</option>
+        </select>
+        <p id="output"></p>
+        <script>
+function show(monument)
+{
+    document.getElementById("output").innerHTML="famous monument:"+monument;
+}
+        </script>
+
+    </body>
+
+</html>
