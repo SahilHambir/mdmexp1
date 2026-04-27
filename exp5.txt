@@ -1,0 +1,49 @@
+Exp 5  Join Operations  & union,intersect,difference :
+
+
+
+
+
+create Database Ott;
+
+use Ott;
+
+create table A(id int,name varchar(20));
+
+insert into A values(1,"Rahul");
+insert into A values(2,"Amit");
+insert into A values(3,"Sneha");
+insert into A values(4,"Neha");
+
+select * from A;
+
+create table B(id int,course varchar(20));
+
+insert into B values(1,"AIDS");
+insert into B values(2,"CSE");
+insert into B values(3,"AIML");
+insert into B values(5,"CYBER");
+
+
+select A.id,A.name,B.course from A inner join B on A.id = B.id;
+
+select A.id, A.name, B.course from A left join B on A.id = B.id;
+
+select A.id, A.name, B.course from A right join B on A.id = B.id;
+
+select * from A natural join B;
+
+select A.id, A.name, B.course from A left join B on A.id = B.id 
+union 
+select A.id, A.name, B.course from A right join B on A.id = B.id;
+
+
+// Relational Algebra operators.
+
+
+select id from A union select id from B;
+
+select id from A intersect select id from B;
+
+select A.id from A inner join B on A.id = B.id;
+

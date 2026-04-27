@@ -1,0 +1,53 @@
+Exp 4  Pattern Matching & Aggregate functions:
+
+
+
+
+create Database Ott;
+
+use Ott;
+
+create table Stud(roll int,name varchar(20),dept varchar(20),sal int);
+
+insert into Stud values(7,"Mahi","CSE",100);
+insert into Stud values(18,"Virat","Civil",10);
+insert into Stud values(21,"Hardik","AIDS",50);
+insert into Stud values(16,"Max","IT",1000);
+
+select * from Stud;
+
+// Aggregate Functions:
+
+select sum(sal) from Stud;
+
+select max(sal) from Stud;
+
+select min(sal) from Stud;
+
+select avg(sal) from Stud;
+
+select count(*) from Stud;
+
+
+// Pattern Matching :
+
+
+select name from Stud where name like "M%";          //(staring letter M)
+
+select name from Stud where name like "%k";         //(lasting letter k)
+
+select name from Stud where name like "_";       //(no of characters)
+
+select * from Stud where name like "_a%";         //(second letter a)
+
+select name from Stud where name like "%a%";      //(a letter between )
+
+select name from Stud where name like "M%x";      //(staring with M and ending with x)
+
+
+
+
+
+
+
+
