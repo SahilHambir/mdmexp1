@@ -1,0 +1,64 @@
+SRTF  :
+# Shortest Remaining Time First (SRTF) Scheduling Algorithm
+
+# Process data
+process_ids = [1, 2, 3, 4]
+arrival_times = [0, 1, 2, 3]
+burst_times = [8, 4, 9, 5]
+
+number_of_processes = len(process_ids)
+
+# Initialize remaining burst times
+remaining_times = burst_times.copy()
+
+# Initialize completion, waiting, and turnaround times
+completion_times = [0] * number_of_processes
+waiting_times = [0] * number_of_processes
+turnaround_times = [0] * number_of_processes
+
+current_time = 0
+completed_processes = 0
+
+while completed_processes < number_of_processes:
+    shortest_index = -1
+    minimum_remaining_time = float('inf')
+
+    for i in range(number_of_processes):
+        if arrival_times[i] <= current_time and remaining_times[i] > 0:
+            if remaining_times[i] < minimum_remaining_time:
+                minimum_remaining_time = remaining_times[i]
+                shortest_index = i
+
+    if shortest_index == -1:
+        current_time += 1
+        continue
+
+    remaining_times[shortest_index] -= 1
+    current_time += 1
+
+    if remaining_times[shortest_index] == 0:
+        completed_processes += 1
+        completion_times[shortest_index] = current_time
+        turnaround_times[shortest_index] = (
+            completion_times[shortest_index] - arrival_times[shortest_index]
+        )
+        waiting_times[shortest_index] = (
+            turnaround_times[shortest_index] - burst_times[shortest_index]
+        )
+
+print("Process  Arrival  Burst  Completion  Waiting  Turnaround")
+for i in range(number_of_processes):
+    print(
+        f"P{process_ids[i]:<7}"
+        f"{arrival_times[i]:<9}"
+        f"{burst_times[i]:<7}"
+        f"{completion_times[i]:<12}"
+        f"{waiting_times[i]:<9}"
+        f"{turnaround_times[i]}"
+    )
+
+average_waiting_time = sum(waiting_times) / number_of_processes
+average_turnaround_time = sum(turnaround_times) / number_of_processes
+
+print("\nAverage Waiting Time:", round(average_waiting_time, 2))
+print("Average Turnaround Time:", round(average_turnaround_time, 2))

@@ -1,0 +1,192 @@
+Disk:
+
+n = int(input("Enter no of disk requests : "))
+requests = []
+print("Enter disk requests: ")
+for i in range(n):
+    requests.append(int(input()))
+    
+head = int(input("Enter head position: "))
+disk_size = int(input("Enter disk size: "))
+
+
+# Function to print movement
+def show(name, sequence, total):
+    print(f"\n{name} Order:")
+    print(" -> ".join(map(str, sequence)))
+    print("Total Seek Distance:", total)
+
+
+# -----------------------------------
+# FCFS (First Come First Serve)
+# -----------------------------------
+
+def fcfs():
+    current = head
+    total = 0
+    sequence = [current]
+
+    for r in requests:
+        total += abs(r - current)
+        current = r
+        sequence.append(current)
+
+    show("FCFS", sequence, total)
+
+
+# -----------------------------------
+# SSTF (Shortest Seek Time First)
+# -----------------------------------
+
+def sstf():
+    pending = requests.copy()
+    current = head
+    total = 0
+    sequence = [current]
+
+    while pending:
+        nearest = min(pending, key=lambda x: abs(x - current))
+
+        total += abs(nearest - current)
+        current = nearest
+        sequence.append(current)
+
+        pending.remove(nearest)
+
+    show("SSTF", sequence, total)
+
+
+# -----------------------------------
+# SCAN
+# -----------------------------------
+
+def scan():
+    current = head
+    total = 0
+    sequence = [current]
+
+    left = sorted([x for x in requests if x < head])
+    right = sorted([x for x in requests if x >= head])
+
+    # Move right first
+    for r in right:
+        total += abs(r - current)
+        current = r
+        sequence.append(current)
+
+    # Go till disk end
+    total += abs((disk_size - 1) - current)
+    current = disk_size - 1
+    sequence.append(current)
+
+    # Move left side reverse
+    for r in reversed(left):
+        total += abs(r - current)
+        current = r
+        sequence.append(current)
+
+    show("SCAN", sequence, total)
+
+
+# -----------------------------------
+# C-SCAN
+# -----------------------------------
+
+def cscan():
+    current = head
+    total = 0
+    sequence = [current]
+
+    left = sorted([x for x in requests if x < head])
+    right = sorted([x for x in requests if x >= head])
+
+    # Move right first
+    for r in right:
+        total += abs(r - current)
+        current = r
+        sequence.append(current)
+
+    # Go till disk end
+    total += abs((disk_size - 1) - current)
+    current = disk_size - 1
+    sequence.append(current)
+
+    # Jump to start
+    current = 0
+    sequence.append(current)
+
+    # Continue left side
+    for r in left:
+        total += abs(r - current)
+        current = r
+        sequence.append(current)
+
+    show("C-SCAN", sequence, total)
+
+
+# -----------------------------------
+# LOOK
+# -----------------------------------
+
+def look():
+    current = head
+    total = 0
+    sequence = [current]
+
+    left = sorted([x for x in requests if x < head])
+    right = sorted([x for x in requests if x >= head])
+
+    # Move right first
+    for r in right:
+        total += abs(r - current)
+        current = r
+        sequence.append(current)
+
+    # Reverse from last request only
+    for r in reversed(left):
+        total += abs(r - current)
+        current = r
+        sequence.append(current)
+
+    show("LOOK", sequence, total)
+
+
+# -----------------------------------
+# C-LOOK
+# -----------------------------------
+
+def clook():
+    current = head
+    total = 0
+    sequence = [current]
+
+    left = sorted([x for x in requests if x < head])
+    right = sorted([x for x in requests if x >= head])
+
+    # Move right first
+    for r in right:
+        total += abs(r - current)
+        current = r
+        sequence.append(current)
+
+    # Jump to smallest left request
+    if left:
+        total += abs(current - left[0])
+        current = left[0]
+        sequence.append(current)
+
+        for r in left[1:]:
+            total += abs(r - current)
+            current = r
+            sequence.append(current)
+
+    show("C-LOOK", sequence, total)
+
+
+# Run all algorithms
+fcfs()
+sstf()
+scan()
+cscan()
+look()
+clook()

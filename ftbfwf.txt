@@ -1,0 +1,142 @@
+FF, BF, WF:
+
+# First Fit, Best Fit, Worst Fit Memory Allocation
+
+# Available memory blocks
+blocks = [100, 500, 200, 300, 600]
+
+# Total number of memory blocks
+n = len(blocks)
+
+# Size of process to be allocated
+process_size = 212
+
+
+# -------------------------------
+# FIRST FIT
+# -------------------------------
+
+def first_fit(blocks, process_size):
+
+    # Initially no block is selected
+    index = -1
+
+    # Track which block is occupied
+    occupied = [False] * n
+
+    # Check blocks from left to right
+    for j in range(n):
+
+        # If block size is enough
+        # and block is not occupied
+        if blocks[j] >= process_size and not occupied[j]:
+
+            # Select this first suitable block
+            index = j
+
+            print(
+                f"First Fit: block ({blocks[index]}) "
+                f"allotted to process of size {process_size}"
+            )
+
+            # Mark block as occupied
+            occupied[j] = True
+
+            # Stop after first suitable block
+            break
+
+    # If no block found
+    if index == -1:
+        print("No block is allotted")
+
+    print("Block Occupancy:", occupied)
+
+
+# -------------------------------
+# BEST FIT
+# -------------------------------
+
+def best_fit(blocks, process_size):
+
+    # Initially no block is selected
+    index = -1
+
+    # Track occupied blocks
+    occupied = [False] * n
+
+    # Start with infinite minimum
+    minimum = float('inf')
+
+    # Check all blocks
+    for j in range(n):
+
+        # Block should be enough and free
+        if blocks[j] >= process_size and not occupied[j]:
+
+            # Select smallest suitable block
+            if blocks[j] < minimum:
+                minimum = blocks[j]
+                index = j
+
+    # If no block found
+    if index == -1:
+        print("No block is allotted")
+
+    else:
+        print(
+            f"Best Fit: block ({blocks[index]}) "
+            f"allotted to process of size {process_size}"
+        )
+
+        # Mark selected block occupied
+        occupied[index] = True
+
+    print("Block Occupancy:", occupied)
+
+
+# -------------------------------
+# WORST FIT
+# -------------------------------
+
+def worst_fit(blocks, process_size):
+
+    # Initially no block selected
+    index = -1
+
+    # Track occupied blocks
+    occupied = [False] * n
+
+    # Start with maximum = 0
+    maximum = 0
+
+    # Check all blocks
+    for j in range(n):
+
+        # Block should be enough and free
+        if blocks[j] >= process_size and not occupied[j]:
+
+            # Select largest suitable block
+            if blocks[j] > maximum:
+                maximum = blocks[j]
+                index = j
+
+    # If no block found
+    if index == -1:
+        print("No block is allotted")
+
+    else:
+        print(
+            f"Worst Fit: block ({blocks[index]}) "
+            f"allotted to process of size {process_size}"
+        )
+
+        # Mark selected block occupied
+        occupied[index] = True
+
+    print("Block Occupancy:", occupied)
+
+
+# Function Calls
+first_fit(blocks, process_size)
+best_fit(blocks, process_size)
+worst_fit(blocks, process_size)

@@ -1,0 +1,70 @@
+non-p priority:
+# Non-Preemptive Priority Scheduling Algorithm
+
+# Process data
+process_ids = [1, 2, 3, 4]
+arrival_times = [0, 1, 2, 3]
+burst_times = [6, 8, 7, 3]
+priorities = [2, 1, 3, 1]   # Lower number = higher priority
+
+number_of_processes = len(process_ids)
+
+# Initialize result arrays
+completion_times = [0] * number_of_processes
+waiting_times = [0] * number_of_processes
+turnaround_times = [0] * number_of_processes
+is_completed = [False] * number_of_processes
+
+current_time = 0
+completed_processes = 0
+
+while completed_processes < number_of_processes:
+    highest_priority_index = -1
+    highest_priority_value = float('inf')
+
+    # Select process with highest priority among arrived processes
+    for i in range(number_of_processes):
+        if arrival_times[i] <= current_time and not is_completed[i]:
+            if priorities[i] < highest_priority_value:
+                highest_priority_value = priorities[i]
+                highest_priority_index = i
+
+    # If no process is ready, move time forward
+    if highest_priority_index == -1:
+        current_time += 1
+        continue
+
+    # Execute selected process completely (non-preemptive)
+    current_time += burst_times[highest_priority_index]
+    completion_times[highest_priority_index] = current_time
+
+    turnaround_times[highest_priority_index] = (
+        completion_times[highest_priority_index] - arrival_times[highest_priority_index]
+    )
+
+    waiting_times[highest_priority_index] = (
+        turnaround_times[highest_priority_index] - burst_times[highest_priority_index]
+    )
+
+    is_completed[highest_priority_index] = True
+    completed_processes += 1
+
+# Display results
+print("Process  Arrival  Burst  Priority  Completion  Waiting  Turnaround")
+
+for i in range(number_of_processes):
+    print(
+        f"P{process_ids[i]:<7}"
+        f"{arrival_times[i]:<9}"
+        f"{burst_times[i]:<7}"
+        f"{priorities[i]:<10}"
+        f"{completion_times[i]:<12}"
+        f"{waiting_times[i]:<9}"
+        f"{turnaround_times[i]}"
+    )
+
+average_waiting_time = sum(waiting_times) / number_of_processes
+average_turnaround_time = sum(turnaround_times) / number_of_processes
+
+print("\nAverage Waiting Time:", round(average_waiting_time, 2))
+print("Average Turnaround Time:", round(average_turnaround_time, 2))

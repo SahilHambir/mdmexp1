@@ -1,0 +1,56 @@
+
+# Non-Preemptive Process Scheduling - FCFS
+
+def fcfs_scheduling(processes):
+    n = len(processes)
+
+    completion_time = [0] * n
+    waiting_time = [0] * n
+    turnaround_time = [0] * n
+
+    # Sort processes based on Arrival Time
+    processes.sort(key=lambda x: x[1])
+
+    current_time = 0
+
+    for i in range(n):
+        pid, at, bt = processes[i]
+
+        if current_time < at:
+            current_time = at
+
+        current_time += bt
+        completion_time[i] = current_time
+
+        turnaround_time[i] = completion_time[i] - at
+        waiting_time[i] = turnaround_time[i] - bt
+
+    return waiting_time, turnaround_time
+
+
+# -------- Main Program --------
+n = int(input("Enter number of processes: "))
+processes = []
+
+print("Enter process details:")
+print("ProcessID ArrivalTime BurstTime")
+
+for i in range(n):
+    pid = i + 1
+    at = int(input(f"P{pid} Arrival Time: "))
+    bt = int(input(f"P{pid} Burst Time: "))
+    processes.append([pid, at, bt])
+
+wt, tat = fcfs_scheduling(processes)
+
+print("\nProcess\tAT\tBT\tWT\tTAT")
+total_wt = 0
+total_tat = 0
+
+for i in range(n):
+    print(f"P{processes[i][0]}\t{processes[i][1]}\t{processes[i][2]}\t{wt[i]}\t{tat[i]}")
+    total_wt += wt[i]
+    total_tat += tat[i]
+
+print("\nAverage Waiting Time =", total_wt / n)
+print("Average Turnaround Time =", total_tat / n)

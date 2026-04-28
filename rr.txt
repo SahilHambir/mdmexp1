@@ -1,0 +1,71 @@
+RR: 
+# Round Robin Scheduling Algorithm (Time Quantum = 2)
+
+process_ids = [1, 2, 3, 4]
+arrival_times = [0, 1, 2, 3]
+burst_times = [6, 8, 7, 3]
+
+time_quantum = 2
+number_of_processes = len(process_ids)
+
+remaining_times = burst_times.copy()
+
+completion_times = [0] * number_of_processes
+waiting_times = [0] * number_of_processes
+turnaround_times = [0] * number_of_processes
+is_completed = [False] * number_of_processes
+
+current_time = 0
+completed_processes = 0
+ready_queue = []
+
+while completed_processes < number_of_processes:
+
+    for i in range(number_of_processes):
+        if arrival_times[i] <= current_time and i not in ready_queue and not is_completed[i]:
+            ready_queue.append(i)
+
+    if not ready_queue:
+        current_time += 1
+        continue
+
+    current_process_index = ready_queue.pop(0)
+
+    execution_time = min(time_quantum, remaining_times[current_process_index])
+    remaining_times[current_process_index] -= execution_time
+    current_time += execution_time
+
+    for i in range(number_of_processes):
+        if arrival_times[i] <= current_time and i not in ready_queue and not is_completed[i]:
+            ready_queue.append(i)
+
+    if remaining_times[current_process_index] == 0:
+        completion_times[current_process_index] = current_time
+        turnaround_times[current_process_index] = (
+            completion_times[current_process_index] - arrival_times[current_process_index]
+        )
+        waiting_times[current_process_index] = (
+            turnaround_times[current_process_index] - burst_times[current_process_index]
+        )
+        is_completed[current_process_index] = True
+        completed_processes += 1
+    else:
+        ready_queue.append(current_process_index)
+
+print("Process  Arrival  Burst  Completion  Waiting  Turnaround")
+
+for i in range(number_of_processes):
+    print(
+        f"P{process_ids[i]:<7}"
+        f"{arrival_times[i]:<9}"
+        f"{burst_times[i]:<7}"
+        f"{completion_times[i]:<12}"
+        f"{waiting_times[i]:<9}"
+        f"{turnaround_times[i]}"
+    )
+
+average_waiting_time = sum(waiting_times) / number_of_processes
+average_turnaround_time = sum(turnaround_times) / number_of_processes
+
+print("\nAverage Waiting Time:", round(average_waiting_time, 2))
+print("Average Turnaround Time:", round(average_turnaround_time, 2))
